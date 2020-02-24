@@ -23,9 +23,13 @@ the template in the top comment
 */
 void print_matrix(struct matrix *m) {
   int r, c;
-  for (r = 0; m->rows; r++) {
-    for (c = 0; c->cols; c++) {
-      printf("%f \n", m->m[r][c]);
+  if (m->lastcol != 0) {
+    for (r = 0; r < 4; r++) {
+      for (c = 0; c < m->lastcol; c++) {
+        printf("%f ", m->m[r][c]);
+        // printf("%d ", 1);
+      }
+      printf("\n");
     }
     printf("\n");
   }
@@ -38,8 +42,8 @@ turns m in to an identity matrix
 */
 void ident(struct matrix *m) {
   int r, c;
-  for (r = 0; m->rows; r++) {
-    for (c = 0; c->cols; c++) {
+  for (r = 0; r<m->rows; r++) {
+    for (c = 0; c<m->cols; c++) {
       if (c == r) {
         m->m[r][c] = 1.0;
       }
@@ -60,12 +64,12 @@ a*b -> b
 */
 void matrix_mult(struct matrix *a, struct matrix *b) {
   struct matrix *temp;
-  temp = new_matrix(4,4);
+  temp = new_matrix(a->rows,b->cols);
   int r, c, i = 0;
-  for (r = 0; r< 4; r++) {
-    for (c = 0; c< 4; c++) {
-      for (i = 0; i<4; i++) {
-        temp[r][c] += a[r][i] * b[i][r];
+  for (r = 0; r< temp->rows; r++) {
+    for (c = 0; c< temp->cols; c++) {
+      for (i = 0; i<temp->cols; i++) {
+        temp-> m[r][c] += a->m[r][i] * b->m[i][r];
       }
     }
   }

@@ -14,6 +14,10 @@ int main() {
 
   edges = new_matrix(4, 4);
 
+  ident(edges);
+  print_matrix(edges);
+
+  add_edge(edges, 1,2,3,4,5,6);
   print_matrix(edges);
 
   free_matrix( edges );
