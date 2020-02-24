@@ -42,21 +42,50 @@ int main() {
   color c;
   clear_screen(s);
 
-  c.red = 0;
-  c.green = 255;
-  c.blue = 0;
+  c.red = 135;
+  c.green = 206;
+  c.blue = 250;
 
   struct matrix *picture = new_matrix(4, 100);
-  // for(int i = 0; i < 20; i++){
-    add_edge(picture, 0, 250, 0, 499, 250,0);
-    // add_edge(picture, (i * 10 + 20),(500 - i * 10), 0, (i*20%500),(500- i*15),0);
-  // }
+  for(int i = 0; i < 20; i++){
+    add_edge(picture, 0, 50+i*10, 0, 499, 50-i*10,0);
+  }
+  for(int i = 0; i < 20; i++){
+    add_edge(picture, 150+i*10, i, 0, 150-i*10, 499, 0);
+  }
+  for(int i = 0; i < 20; i++){
+    add_edge(picture, 0, 250+i*10, 0, 499, 250-i*10,0);
+  }
+  for(int i = 0; i < 20; i++){
+    add_edge(picture, 350+i*10, i, 0, 350-i*10, 499, 0);
+  }
 
   draw_lines(picture, s, c);
+
+  picture = new_matrix(4, 100);
+
+  c.red = 240;
+  c.green = 116;
+  c.blue = 116;
+
+  for(int i = 0; i < 20; i++){
+    add_edge(picture, 50+i*10, i, 0, 50-i*10, 499, 0);
+  }
+  for(int i = 0; i < 20; i++){
+    add_edge(picture, 0, 150+i*10, 0, 499, 150-i*10,0);
+  }
+  for(int i = 0; i < 20; i++){
+    add_edge(picture, 250+i*10, i, 0, 250-i*10, 499, 0);
+  }
+  for(int i = 0; i < 20; i++){
+    add_edge(picture, 0, 350+i*10, 0, 499, 350-i*10,0);
+  }
+  draw_lines(picture, s, c);
+
   display(s);
   save_extension(s, "picture.png");
   save_ppm(s, "binary.ppm");
   save_ppm_ascii(s, "ascii.ppm");
 
-  free_matrix(picture);
+  // free_matrix(picture);
 }

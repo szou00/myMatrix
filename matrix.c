@@ -24,7 +24,7 @@ the template in the top comment
 void print_matrix(struct matrix *m) {
   int r, c;
   if (m->lastcol != 0) {
-    for (r = 0; r < 4; r++) {
+    for (r = 0; r < m->rows; r++) {
       for (c = 0; c < m->lastcol; c++) {
         printf("%.2f ", m->m[r][c]);
         // printf("%d ", 1);
