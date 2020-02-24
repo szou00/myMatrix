@@ -26,7 +26,7 @@ void print_matrix(struct matrix *m) {
   if (m->lastcol != 0) {
     for (r = 0; r < 4; r++) {
       for (c = 0; c < m->lastcol; c++) {
-        printf("%f ", m->m[r][c]);
+        printf("%.2f ", m->m[r][c]);
         // printf("%d ", 1);
       }
       printf("\n");
@@ -42,8 +42,9 @@ turns m in to an identity matrix
 */
 void ident(struct matrix *m) {
   int r, c;
-  for (r = 0; r<m->rows; r++) {
-    for (c = 0; c<m->cols; c++) {
+  m->lastcol = 4;
+  for (r = 0; r<4; r++) {
+    for (c = 0; c<4; c++) {
       if (c == r) {
         m->m[r][c] = 1.0;
       }
@@ -63,15 +64,20 @@ multiply a by b, modifying b to be the product
 a*b -> b
 */
 void matrix_mult(struct matrix *a, struct matrix *b) {
-  struct matrix *temp;
-  temp = new_matrix(a->rows,b->cols);
-  int r, c, i = 0;
-  for (r = 0; r< temp->rows; r++) {
-    for (c = 0; c< temp->cols; c++) {
-      for (i = 0; i<temp->cols; i++) {
-        temp-> m[r][c] += a->m[r][i] * b->m[i][r];
+  if (a->lastcol == 4) {
+    struct matrix *temp;
+    temp = new_matrix(a->rows,b->lastcol);
+    int r, c, i = 0;
+    for (r = 0; r< temp->rows; r++) {
+      for (c = 0; c< temp->lastcol; c++) {
+        for (i = 0; i<temp->lastcol; i++) {
+          temp-> m[r][c] += a->m[r][i] * b->m[i][r];
+        }
       }
     }
+  }
+  else {
+    printf("Failed to multiply due to incorrect dimensions\n");
   }
 }
 
